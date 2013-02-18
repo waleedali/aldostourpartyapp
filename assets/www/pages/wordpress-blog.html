@@ -1,0 +1,42 @@
+        <h2>Our Blog<div class="right list-summary"><a data-class="summary" class="active" href="#">long</a><a data-class="list" href="#">short</a></div></h2>
+      <style>
+          .article-body .text img {
+              display: none;
+          }
+      </style>
+      <div class="sub-content">
+        
+          
+        <?
+        $url = "http://dvadesetdva.wordpress.com/feed/";
+        $rss = simplexml_load_file($url);
+        if($rss) {
+            $items = $rss->channel->item;
+            foreach($items as $item) {
+        ?>
+        <div class="blog-article">
+          <div class="article-header">
+            <p class="title"><?=$item->title?></p>
+            <p class="info"><?=date("d M Y", strtotime($item->pubDate))?> <span>(<?=$item->children("dc", true)?>)</span></p>
+          </div>
+          <div class="article-body">
+            <div class="text">
+              <?=$item->description?>
+            </div>
+          </div>
+          <div class="article-footer">
+            <a href="pages/blog-details.php?item=<?=urlencode($item->link)?>" target="_blank" class="ajaxify button button2 left">Read On</a>
+            <div class="tags right">
+              <!--<span>politics</span><span>computers</span>-->
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>    
+            
+        <?
+            }
+        }
+        
+        ?>
+                
+      </div>

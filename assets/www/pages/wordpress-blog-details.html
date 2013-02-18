@@ -1,0 +1,40 @@
+      <h2>Our Blog</h2>
+      <style>
+          .article-body .text img {
+              display: none;
+          }
+      </style>
+      <div class="sub-content">
+        <? $link = $_GET['item']; ?>
+          
+        <?
+        $url = "http://dvadesetdva.wordpress.com/feed/";
+        $rss = simplexml_load_file($url);
+        if($rss) {
+            $items = $rss->channel->item;
+            foreach($items as $item) {
+                if ($item->link != $link)
+                    continue;
+        ?>
+          
+        <div class="blog-article">
+          <div class="article-header">
+            <p class="title"><?=$item->title?></p>
+            <p class="info"><?=date("d M Y", strtotime($item->pubDate))?> <span>(<?=$item->children("dc", true)?>)</span></p>
+          </div>
+          <div class="article-body">
+            <div class="text">
+              <?=$item->children("content", true);?>
+            </div>
+          </div>
+          <div class="article-footer">
+            <a href="pages/blog.php" class="ajaxify button button2 left">Back</a>
+            <div class="tags right">
+              <!--<span>technology</span><span>computers</span>-->
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>        
+      </div>
+      
+      <?}}?>
