@@ -19,9 +19,9 @@
 
 package com.aldostourparty.app;
 
-
 import android.os.Bundle;
 import org.apache.cordova.*;
+import com.google.analytics.tracking.android.*;
 
 public class AldostourApp extends DroidGap
 {
@@ -34,5 +34,20 @@ public class AldostourApp extends DroidGap
         //super.loadUrl("file:///android_asset/www/index.html", 10000);
         super.loadUrl("file:///android_asset/www/index.html");
     }
+    
+    @Override
+    public void onStart() {
+      super.onStart();
+      
+      EasyTracker.getInstance().activityStart(this); // Add this method.
+    }
+
+    @Override
+    public void onStop() {
+      super.onStop();
+      
+      EasyTracker.getInstance().activityStop(this); // Add this method.
+    }
+
 }
 
