@@ -1,4 +1,4 @@
 aldostourpartyapp
 =================
 
-Aldostour Party App source code
+Aldostour Party's App
